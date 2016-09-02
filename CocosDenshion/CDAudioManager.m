@@ -818,6 +818,7 @@ static BOOL configured = FALSE;
 // iOS >= 6.0 only
 - (void)interruption:(NSNotification*)notification
 {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30000
     NSDictionary *interuptionDict = notification.userInfo;
     NSUInteger interuptionType = (NSUInteger)[interuptionDict valueForKey:AVAudioSessionInterruptionTypeKey];
     
@@ -825,6 +826,7 @@ static BOOL configured = FALSE;
         [self beginInterruption];
     else if (interuptionType == AVAudioSessionInterruptionTypeEnded)
         [self endInterruptionWithOptions:(AVAudioSessionInterruptionOptions)[interuptionDict valueForKey:AVAudioSessionInterruptionOptionKey]];
+#endif
 }
 
 @end
